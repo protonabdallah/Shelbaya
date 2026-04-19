@@ -108,10 +108,6 @@ export default function AdminLoginPage() {
             {loading ? "Signing in..." : "Sign In"}
           </button>
         </form>
-
-        <p className="text-center text-white/20 text-xs mt-6">
-          Default: admin / abd123abd
-        </p>
       </div>
     </div>
   );

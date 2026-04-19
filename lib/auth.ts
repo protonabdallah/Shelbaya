@@ -1,22 +1,18 @@
-import { SignJWT, jwtVerify } from "jose";
+import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || "fallback-secret-key"
-);
+const JWT_SECRET = process.env.JWT_SECRET || "fallback-secret-key";
 
 export async function signToken(payload: Record<string, unknown>) {
-  return await new SignJWT(payload)
-    .setProtectedHeader({ alg: "HS256" })
-    .setIssuedAt()
-    .setExpirationTime("7d")
-    .sign(JWT_SECRET);
+  return jwt.sign(payload, JWT_SECRET, {
+    algorithm: "HS256",
+    expiresIn: "7d",
+  });
 }
 
 export async function verifyToken(token: string) {
   try {
-    const { payload } = await jwtVerify(token, JWT_SECRET);
-    return payload;
+    return jwt.verify(token, JWT_SECRET) as Record<string, unknown>;
   } catch {
     return null;
   }
