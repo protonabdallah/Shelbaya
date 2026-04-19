@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Post {
+  id            Int      @id @default(autoincrement())
+  title         String
+  titleAr       String?
+  description   String?
+  descriptionAr String?
+  content       String?
+  contentAr     String?
+  category      String   @default("photography")
+  tags          String?
+  coverImage    String?
+  mediaUrl      String?
+  mediaType     String   @default("image")
+  gallery       String?  // JSON: [{url, type, caption}]
+  sections      String   @default("[\"home_featured\",\"works_page\"]") // JSON: string[]
+  featured      Boolean  @default(false)
+  published     Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Product {
+  id            Int         @id @default(autoincrement())
+  name          String
+  nameAr        String?
+  description   String?
+  descriptionAr String?
+  price         Float
+  oldPrice      Float?
+  stock         Int         @default(0)
+  category      String
+  brand         String?
+  images        String?     // JSON: string[]
+  featured      Boolean     @default(false)
+  published     Boolean     @default(true)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  orderItems    OrderItem[]
+}
+
+model Order {
+  id              Int         @id @default(autoincrement())
+  customerName    String
+  customerEmail   String
+  customerPhone   String
+  customerAddress String?
+  city            String?
+  notes           String?
+  total           Float
+  status          String      @default("pending")
+  items           OrderItem[]
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   Int
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+  quantity  Int
+  price     Float
+}
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}

@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: shelbaya-for-computers
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm install && npm run build
+    startCommand: npm run render:start
+    autoDeployTrigger: commit
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        value: file:./data/dev.db
+      - key: JWT_SECRET
+        generateValue: true
