@@ -97,7 +97,7 @@ export function AdminSidebar() {
       {/* Bottom */}
       <div className="p-4 space-y-1 border-t border-white/5">
         <Link
-          href="/"
+          href="/home"
           target="_blank"
           className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-white/50 hover:text-white hover:bg-white/5 transition-all cursor-pointer"
         >

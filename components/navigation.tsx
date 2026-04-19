@@ -30,7 +30,7 @@ export function Navigation({ onOpenPortfolio, isOverlayOpen = false }: NavProps)
   const menuPanelWidth = "clamp(300px, 86vw, 420px)";
 
   const menuItems = [
-    { label: t.home,    labelEn: "Home",    href: "/",      action: null },
+    { label: t.home,    labelEn: "Home",    href: "/home",  action: null },
     { label: t.store,   labelEn: "Store",   href: "/store", action: null },
     { label: t.cart,    labelEn: "Cart",    href: "/cart",  action: null },
   ];
@@ -85,7 +85,7 @@ export function Navigation({ onOpenPortfolio, isOverlayOpen = false }: NavProps)
     <>
       {/* Logo top-left */}
       <Link
-        href="/"
+        href="/home"
         className="fixed top-4 left-4 md:left-6 z-[200] flex items-center gap-2"
       >
         <Image
